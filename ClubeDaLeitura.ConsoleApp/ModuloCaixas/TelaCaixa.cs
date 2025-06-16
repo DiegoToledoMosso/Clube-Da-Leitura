@@ -50,7 +50,7 @@ public class TelaCaixa : TelaBase
 
     protected override EntidadeBase ObterDados()
     {
-        Console.Write("Digite o etiqueta da caixa: ");
+        Console.Write("Digite a etiqueta da caixa: ");
         string etiqueta = Console.ReadLine();
 
         Console.Write("Digite a cor da caixa: ");
