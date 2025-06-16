@@ -8,6 +8,66 @@ public class TelaAmigo : TelaBase
     {
     }
 
+    public override void CadastrarRegistro()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine($"Cadastro de {nomeEntidade}");
+
+        Console.WriteLine();
+
+        Amigo novoRegistro = (Amigo)ObterDados();
+
+        string erros = novoRegistro.Validar();
+
+        if (erros.Length > 0)
+        {
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erros);
+            Console.ResetColor();
+
+            Console.Write("\nDigite ENTER para continuar...");
+            Console.ReadLine();
+
+            CadastrarRegistro();
+
+            return;
+        }
+
+        EntidadeBase[] registros = repositorio.SelecionarRegistros();
+
+        for (int i = 0; i < registros.Length; i++)
+        {
+            Amigo amigoRegistrado = (Amigo)registros[i];    
+
+            if (amigoRegistrado == null) 
+                continue;
+
+            if (amigoRegistrado.Nome == novoRegistro.Nome || amigoRegistrado.Telefone == novoRegistro.Telefone)
+            {
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Um amigo com este nome ou telefone já foi cadastrado");
+                Console.ResetColor();
+
+                Console.Write("\nDigite ENTER para continuar...");
+                Console.ReadLine();
+
+                CadastrarRegistro();
+
+                return;
+            }            
+        }
+
+        repositorio.CadastrarRegistro(novoRegistro);
+
+        Console.WriteLine($"\n\"{nomeEntidade}\" cadastrado com sucesso!");
+        Console.ReadLine();
+    }
+
     public override void VisualizarRegistros(bool exibirCabecalho)
     {
         if (exibirCabecalho == true)

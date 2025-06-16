@@ -29,7 +29,7 @@ public abstract class TelaBase
         return opcaoEscolhida;
     }
 
-    public void CadastrarRegistro()
+    public virtual void CadastrarRegistro()
     {
         ExibirCabecalho();
 
