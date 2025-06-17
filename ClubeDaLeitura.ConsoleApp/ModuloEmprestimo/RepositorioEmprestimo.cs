@@ -15,7 +15,7 @@ public class RepositorioEmprestimo : RepositorioBase
             if (registros[i] == null)
                 continue;
 
-            if (emprestimoAtual.Status == "Disponível" || emprestimoAtual.Status == "Atrasado")
+            if (emprestimoAtual.Status == "Aberto" || emprestimoAtual.Status == "Atrasado")
                 contadorEmprestimoAtivos++;
         }
 
@@ -30,7 +30,7 @@ public class RepositorioEmprestimo : RepositorioBase
             if (emprestimoAtual == null)
                 continue;
 
-            if (emprestimoAtual.Status == "Disponível" || emprestimoAtual.Status == "Atrasado")
+            if (emprestimoAtual.Status == "Aberto" || emprestimoAtual.Status == "Atrasado")
             {
                 emprestimoAtivos[contadorAuxiliar++] = (Emprestimo)registros[i];
             }
