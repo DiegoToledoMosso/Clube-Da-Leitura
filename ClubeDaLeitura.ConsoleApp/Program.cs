@@ -1,5 +1,6 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 
 namespace ClubeDaLeitura.ConsoleApp;
 
@@ -50,6 +51,29 @@ class Program
                 }
             }
 
+            else if (telaEscolhida is TelaReserva)
+            {
+
+                TelaReserva telaReserva = (TelaReserva)telaEscolhida;
+
+                switch (opcaoEscolhida)
+                {
+
+                    case '1':
+                        telaReserva.CadastrarReserva();
+                        break;
+
+                    case '2':
+                        telaReserva.CancelarReserva();
+                        break;
+
+                    case '3':
+                        telaReserva.VisualizarRegistros(true);
+                        break;
+                    
+                }
+            }
+
             else
             {
                 switch (opcaoEscolhida)
@@ -69,7 +93,7 @@ class Program
                     case '4':
                         telaEscolhida.ExcluirRegistro();
                         break;
-                }                
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixas;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado;
@@ -21,18 +22,24 @@ public class TelaPrincipal
     private RepositorioEmprestimo repositorioEmprestimo;
     private TelaEmprestimo telaEmprestimo;
 
+    private RepositorioReserva repositorioReserva;
+    private TelaReserva telaReserva;
+
+
     public TelaPrincipal()
     {      
         repositorioAmigo = new RepositorioAmigo();        
         repositorioCaixa = new RepositorioCaixa(); 
         repositorioRevista = new RepositorioRevista();   
         repositorioEmprestimo = new RepositorioEmprestimo();
+        repositorioReserva = new RepositorioReserva();
 
 
         telaAmigo = new TelaAmigo(repositorioAmigo, repositorioEmprestimo);
-        telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
-        telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
         telaCaixa = new TelaCaixa(repositorioCaixa);
+        telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+        telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);      
+        telaReserva = new TelaReserva(repositorioReserva, repositorioAmigo, repositorioRevista);
     }
 
     public void ApresentarMenuPrincipal()
@@ -49,6 +56,7 @@ public class TelaPrincipal
         Console.WriteLine("2 - Controle de Caixas");
         Console.WriteLine("3 - Controle de Revistas");
         Console.WriteLine("4 - Controle de Empréstimos");
+        Console.WriteLine("5 - Controle de Reservas");
         Console.WriteLine("S - Sair");
 
         Console.WriteLine();
@@ -70,6 +78,9 @@ public class TelaPrincipal
 
         else if (opcaoEscolhida == '4')
             return telaEmprestimo;
+
+        else if (opcaoEscolhida == '5')
+            return telaReserva;
 
         return null;
 

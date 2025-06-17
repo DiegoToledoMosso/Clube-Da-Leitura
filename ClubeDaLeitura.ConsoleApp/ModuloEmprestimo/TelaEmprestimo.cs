@@ -109,7 +109,7 @@ public class TelaEmprestimo : TelaBase
         VisualizarEmprestimosAtivos();
 
 
-        Console.Write("Digite o ID do empréstimo que que deseja encerrar: ");
+        Console.Write("Digite o ID do empréstimo que deseja encerrar: ");
         int idEmprestimo = Convert.ToInt32(Console.ReadLine());
 
 
@@ -142,7 +142,7 @@ public class TelaEmprestimo : TelaBase
 
         
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"\n {nomeEntidade} conclúído com sucesso!");
+        Console.WriteLine($"\n {nomeEntidade} concluído com sucesso!");
         Console.ResetColor();
         Console.ReadLine();       
     }

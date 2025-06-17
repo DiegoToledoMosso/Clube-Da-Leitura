@@ -22,6 +22,7 @@ Bem-vindo ao Clube da Leitura! Nosso objetivo é reunir amantes da literatura
 - Tem a possibilidade de visualizar todos amigos, caixas, revistas e empréstimos.
 - Tem a possibilidade de visualizar apenas revistas que estão disponiveis e não emprestadas.
 - Tem a possibilidade de visualizar emprestimos em aberto, fechado e concluído.
+- Tem a possibilidade de reservar revistas.
 
 ## Tecnologia
 
