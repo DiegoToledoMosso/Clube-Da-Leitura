@@ -23,17 +23,16 @@ public class TelaPrincipal
 
     public TelaPrincipal()
     {      
-        repositorioAmigo = new RepositorioAmigo();
-        telaAmigo = new TelaAmigo(repositorioAmigo);
-
-        repositorioCaixa = new RepositorioCaixa();
-        telaCaixa = new TelaCaixa(repositorioCaixa);
-
-        repositorioRevista = new RepositorioRevista();
-        telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
-
+        repositorioAmigo = new RepositorioAmigo();        
+        repositorioCaixa = new RepositorioCaixa(); 
+        repositorioRevista = new RepositorioRevista();   
         repositorioEmprestimo = new RepositorioEmprestimo();
+
+
+        telaAmigo = new TelaAmigo(repositorioAmigo, repositorioEmprestimo);
         telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
+        telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+        telaCaixa = new TelaCaixa(repositorioCaixa);
     }
 
     public void ApresentarMenuPrincipal()

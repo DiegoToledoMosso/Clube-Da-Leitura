@@ -27,6 +27,7 @@ public class TelaEmprestimo : TelaBase
         Console.WriteLine($"1 - Cadastro de {nomeEntidade}");
         Console.WriteLine($"2 - Devolução de {nomeEntidade}");
         Console.WriteLine($"3 - Visualização de {nomeEntidade}");        
+        Console.WriteLine($"4 - Pagar Multas de {nomeEntidade}");        
         Console.WriteLine($"S - Sair");
 
         Console.WriteLine();
@@ -89,7 +90,10 @@ public class TelaEmprestimo : TelaBase
 
         repositorio.CadastrarRegistro(novoRegistro);
 
-        Console.WriteLine($"\n\"{nomeEntidade}\" cadastrado com sucesso!");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"\n{nomeEntidade} cadastrado com sucesso!");
+        Console.ResetColor();
+
         Console.ReadLine();
     }
 
@@ -128,20 +132,109 @@ public class TelaEmprestimo : TelaBase
         Console.Write("Deseja confirmar o encerramento do empréstimo? (S/N):  ");
         Console.ResetColor();
 
-        string resposta = Console.ReadLine();
-
+        string resposta = Console.ReadLine()!;
 
         if (resposta.ToUpper() == "S")
-        {
-            emprestimoSelecionado.Status = "Concluído";
-            emprestimoSelecionado.Revista.Status = "Disponível";
+            return;
+        
+        emprestimoSelecionado.Status = "Concluído";
+        emprestimoSelecionado.Revista.Status = "Disponível";
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n {nomeEntidade} conclúído com sucesso!");
+        
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"\n {nomeEntidade} conclúído com sucesso!");
+        Console.ResetColor();
+        Console.ReadLine();       
+    }
+
+    public void PagarMulta()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine($"Pagamentos de multas de {nomeEntidade}");
+
+        Console.WriteLine();
+
+        VisualizarEmprestimosComMulta();
+
+
+        Console.Write("Digite o ID do empréstimo com multas pendentes: ");
+        int idEmprestimo = Convert.ToInt32(Console.ReadLine());
+
+
+        Emprestimo emprestimoSelecionado = (Emprestimo)repositorio.SelecionarRegistroPorId(idEmprestimo);
+
+        if (emprestimoSelecionado == null)
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("O empréstimo não existe!");
             Console.ResetColor();
+
+            Console.Write("\nDigite ENTER para continuar...");
             Console.ReadLine();
+
+            return;
         }
-    
+
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.Write("Deseja confirmar o pagamento da multa? (S/N):  ");
+        Console.ResetColor();
+
+        string resposta = Console.ReadLine()!;
+
+        if (resposta.ToUpper() == "S")
+            return;
+
+        emprestimoSelecionado.MultaPaga = true;
+
+        Console.ForegroundColor= ConsoleColor.Green;
+        Console.WriteLine($"\npagamento da multa do {nomeEntidade} concluido com sucesso");
+        Console.ResetColor();
+
+        Console.ReadLine();
+    }
+
+    private void VisualizarEmprestimosComMulta()
+    {
+        
+        Console.WriteLine("Visualização de Empréstimos Ativos");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -5} | {1, -10} | {2, -10} | {3, -25} | {4, -25} | {5, -20}",
+            "Id", "Amigo", "Revista", "Data do Empréstimo", "Data de Devoluçao", "Valor da Multa"
+        );
+
+        EntidadeBase[] emprestimosComMulta = repositorioEmprestimo.SelecionarEmprestimosComMulta();
+
+
+        for (int i = 0; i < emprestimosComMulta.Length; i++)
+        {
+            Emprestimo e = (Emprestimo)emprestimosComMulta[i];
+
+            if (e == null)
+                continue;
+                       
+
+            if (e.Status == "Atrasado")
+                Console.ForegroundColor = ConsoleColor.Red;
+
+
+            Console.WriteLine(
+              "{0, -5} | {1, -10} | {2, -10} | {3, -25} | {4, -25} | {5, -20}",
+                e.Id, e.Amigo.Nome, e.Revista.Titulo, e.DataEmprestimo.ToShortDateString(), e.DataDevolucao.ToShortDateString(), e.Multa.Valor.ToString("C2")
+            );
+
+            Console.ResetColor();
+        }
+
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.Write($"\nDigite ENTER para continuar...");
+        Console.ResetColor();
+
+        Console.ReadLine();
     }
 
     public override void VisualizarRegistros(bool exibirCabecalho)
