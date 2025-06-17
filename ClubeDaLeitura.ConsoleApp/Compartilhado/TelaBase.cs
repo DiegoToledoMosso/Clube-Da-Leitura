@@ -11,7 +11,7 @@ public abstract class TelaBase
         this.repositorio = repositorio;
     }
 
-    public char ApresentarMenu()
+    public virtual char ApresentarMenu()
     {
         ExibirCabecalho();
 

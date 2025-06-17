@@ -62,11 +62,13 @@ public class TelaAmigo : TelaBase
             }            
         }
 
-        repositorio.CadastrarRegistro(novoRegistro);
+        repositorio.CadastrarRegistro(novoRegistro);      
 
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"\n{nomeEntidade} cadastrado com sucesso!");
         Console.ResetColor();
+
+               
 
         Console.ReadLine();
     }

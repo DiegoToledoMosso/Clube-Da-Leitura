@@ -1,6 +1,8 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixas;
 
+namespace ClubeDaLeitura.ConsoleApp.ModuloRevista;
+
 public class TelaRevista : TelaBase
 {
     private RepositorioCaixa repositorioCaixa;
